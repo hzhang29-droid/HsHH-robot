@@ -5,8 +5,10 @@ from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
 from docx.enum.section import WD_SECTION
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+from pathlib import Path
 
-OUT = "AI陪伴机器人_项目提案_角色分工_赛前与48小时流程.docx"
+OUT = Path("doc/AI陪伴机器人_项目提案_角色分工_赛前与48小时流程.docx")
+OUT.parent.mkdir(parents=True, exist_ok=True)
 BLUE = "275D73"
 LIGHT = "EAF2F5"
 PALE = "F4F7F8"
