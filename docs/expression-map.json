@@ -8,7 +8,6 @@
   "uncertain_reply": "confused",
   "negative_reply": "sad",
   "angry_reply": "angry",
-  "friendly_reply": "smile",
+  "friendly_reply": "happy",
   "timeout": "sleeping"
 }
-
