@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "builds": [
+    { "src": "backend/src/server.js", "use": "@vercel/node" },
+    { "src": "web-app/**", "use": "@vercel/static" },
+    { "src": "assets/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/backend/src/server.js" },
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/styles.css", "dest": "/web-app/styles.css" },
+    { "src": "/app.js", "dest": "/web-app/app.js" },
+    { "src": "/", "dest": "/web-app/index.html" }
+  ]
+}

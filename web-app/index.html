@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f4f0e7" />
+    <meta name="description" content="为你的陪伴机器人定制一张独一无二的宠物脸。" />
+    <title>HsHH · Pet Atelier</title>
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="paper-noise" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="HsHH 首页">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+        <span>Robotie</span>
+      </a>
+      <button class="device-pill" id="deviceButton" type="button">
+        <span class="status-dot"></span>
+        <span>我的伙伴</span>
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">主动式 AI 陪伴伙伴</div>
+          <h1>不是等你开口，<br />才向你<em>靠近！</em></h1>
+          <p>上传一张宠物照片，定制 TA 的外形与性格。Robotie 会感知你的状态，在合适的时候主动回应</p>
+          <div class="hero-actions">
+            <a class="primary-cta" href="#maker">创建我的伙伴 <span>↓</span></a>
+            <a class="secondary-cta" href="#activeDemo">看看 TA 如何主动靠近 <span>→</span></a>
+          </div>
+        </div>
+        <div class="active-demo" id="activeDemo" aria-label="Robotie 主动靠近演示">
+          <div class="demo-caption"><span class="demo-pulse"></span><span id="demoStatus">注意到你</span></div>
+          <div class="demo-room">
+            <div class="demo-person" aria-hidden="true"><i></i><b></b></div>
+            <div class="demo-device" aria-hidden="true">
+              <span class="device-ear left"></span><span class="device-ear right"></span>
+              <div class="device-face"><i></i><i></i><b></b></div>
+              <span class="device-shadow"></span>
+            </div>
+            <div class="demo-heart" aria-hidden="true">♥</div>
+          </div>
+          <div class="demo-insights" aria-hidden="true">
+            <span>连续工作 <b>126 分钟</b></span>
+            <span>偏好：<b>动作陪伴</b></span>
+            <span class="insight-action">→ 主动靠近</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="maker" id="maker">
+        <div class="section-heading">
+          <span class="step-number">01</span>
+          <div><p>WHO IS IT?</p><h2>先认识一下 TA</h2></div>
+        </div>
+
+        <div class="upload-card" id="uploadCard">
+          <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" hidden />
+          <button class="upload-action" id="uploadButton" type="button">
+            <span class="upload-icon">＋</span>
+            <strong>上传或拍一张照片</strong>
+            <small>正脸、光线自然，效果会更好</small>
+          </button>
+          <img id="photoPreview" alt="已选择的宠物照片预览" />
+          <button class="replace-photo" id="replacePhoto" type="button">换一张</button>
+        </div>
+
+        <div class="field-group species-field">
+          <label>TA 是一只…</label>
+          <div class="segmented" role="radiogroup" aria-label="宠物类型">
+            <button type="button" class="selected" data-species="猫猫">猫猫 <span>⌁</span></button>
+            <button type="button" data-species="狗狗" disabled>狗狗 <span>暂未开放</span></button>
+            <button type="button" data-species="其他" disabled>其他 <span>暂未开放</span></button>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field-group full">
+            <label for="petName">名字 <i>选填</i></label>
+            <input id="petName" type="text" maxlength="18" placeholder="例如：小笼包" />
+          </div>
+          <div class="field-group">
+            <label for="breed">品种</label>
+            <input id="breed" type="text" maxlength="24" placeholder="例如：英短" />
+          </div>
+          <div class="field-group">
+            <label for="furColor">毛色</label>
+            <select id="furColor">
+              <option>奶油白</option><option>橘色</option><option>灰蓝色</option><option>黑色</option><option>棕色</option><option>三花</option><option>其他</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="eyeColor">眼睛</label>
+            <select id="eyeColor">
+              <option>琥珀色</option><option>绿色</option><option>蓝色</option><option>棕色</option><option>异瞳</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="faceWidth">脸型</label>
+            <select id="faceWidth">
+              <option>圆圆的</option><option>窄窄的</option><option>介于中间</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group personality-field">
+          <label>TA 的性格 <i>最多选 3 个</i></label>
+          <div class="chips" id="personalityChips">
+            <button type="button" class="active">黏人</button><button type="button">好奇</button><button type="button">慢热</button><button type="button">贪吃</button><button type="button">高冷</button><button type="button">小话痨</button><button type="button">胆小鬼</button><button type="button">精力旺盛</button>
+          </div>
+        </div>
+
+        <div class="field-group slider-field">
+          <div class="slider-label"><label for="quirk">脸的宽度</label><output id="faceOutput">56%</output></div>
+          <input id="quirk" type="range" min="0" max="100" value="56" />
+          <div class="range-ends"><span>尖尖的</span><span>圆乎乎</span></div>
+        </div>
+
+        <button class="generate-button" id="generateButton" type="button">
+          <span class="button-label">生成我的宠物角色</span>
+          <span class="button-arrow">↗</span>
+        </button>
+        <p class="privacy-note">照片只用于生成角色，不会公开展示。<button type="button" id="privacyButton">隐私说明</button></p>
+      </section>
+
+      <section class="result" id="result" aria-live="polite">
+        <div class="result-loading" id="resultLoading">
+          <div class="loading-face"><span></span><span></span><i>⌄</i></div>
+          <h2 id="loadingTitle">正在观察 TA 的小细节…</h2>
+          <p id="loadingStatus">分析毛色、脸型和专属气质</p>
+          <div class="progress"><i id="progressBar"></i></div>
+        </div>
+
+        <div class="result-ready" id="resultReady">
+          <div class="section-heading light">
+            <span class="step-number">02</span>
+            <div><p>NICE TO MEET YOU</p><h2>你的新伙伴来啦</h2></div>
+          </div>
+          <div class="result-card">
+            <div class="result-screen pet-device-screen">
+              <div class="screen-grid"></div>
+              <div class="pet-expression" id="generatedPet">
+                <img id="expressionFrame" src="../assets/expressions/idle/idle_01.png" alt="定制宠物待机表情" />
+                <canvas id="recoloredFrame" width="480" height="320" role="img" aria-label="适配 Tuya T5 屏幕的宠物电子表情"></canvas>
+              </div>
+              <span class="expression-label" id="expressionLabel">IDLE / 待机</span>
+            </div>
+            <div class="expression-tabs" id="expressionTabs">
+              <button class="active" data-expression="idle">待机</button>
+              <button data-expression="happy">开心</button>
+              <button data-expression="sleep">困困</button>
+              <button data-expression="angry">生气</button>
+            </div>
+            <div class="pet-summary">
+              <div><small>NAME</small><strong id="summaryName">小笼包</strong></div>
+              <div><small>EXTRACTED TRAITS</small><strong id="summaryPersonality">虎斑 / 绿眼睛</strong></div>
+            </div>
+            <div class="analysis-summary" id="analysisSummary">
+              <span><small>毛色</small><b id="traitCoat">—</b></span>
+              <span><small>花纹</small><b id="traitPattern">—</b></span>
+              <span><small>眼睛</small><b id="traitEyes">—</b></span>
+              <span><small>置信度</small><b id="traitConfidence">—</b></span>
+            </div>
+            <p class="frame-note" id="frameNote">正在使用基础表情骨架</p>
+          </div>
+          <button class="sync-button" id="syncButton" type="button"><span>同步到我的机器人</span><i>设备连接后可用</i></button>
+          <button class="restart-button" id="restartButton" type="button">不太像？重新调整</button>
+        </div>
+      </section>
+    </main>
+
+    <footer><span>HS—HH / 2026</span><p>Made for one very particular little soul.</p></footer>
+
+    <dialog id="deviceDialog">
+      <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
+      <span class="dialog-icon">⌁</span><h2>连接你的机器人</h2>
+      <p>Tuya 云端连接会由后端完成。前端不会保存 Access ID、Secret 或设备密钥。</p>
+      <div class="code-placeholder"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <button class="dialog-primary" data-close-dialog>我知道了</button>
+    </dialog>
+
+    <dialog id="privacyDialog">
+      <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
+      <span class="dialog-icon">◌</span><h2>关于你的照片</h2>
+      <p>当前原型只在浏览器本地预览照片，不会上传。接入后端后，照片将只用于生成宠物身份图，并按项目隐私策略删除。</p>
+      <button class="dialog-primary" data-close-dialog>好的</button>
+    </dialog>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
