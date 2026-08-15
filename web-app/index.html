@@ -9,32 +9,45 @@
     <link rel="preconnect" href="https://api.fontshare.com" />
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      document.documentElement.dataset.page = new URLSearchParams(location.search).get("page") === "experience"
+        ? "experience"
+        : "intro";
+    </script>
   </head>
   <body>
     <div class="paper-noise" aria-hidden="true"></div>
     <header class="topbar">
-      <a class="brand" href="#top" aria-label="HsHH 首页">
+      <a class="brand" href="index.html" aria-label="Robotie 产品介绍">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
         <span>Robotie</span>
       </a>
-      <button class="device-pill" id="deviceButton" type="button">
-        <span class="status-dot"></span>
-        <span>我的伙伴</span>
-      </button>
+      <div class="topbar-actions">
+        <nav class="page-switch" aria-label="页面切换">
+          <a data-page-link="intro" href="index.html">产品介绍</a>
+          <a data-page-link="experience" href="index.html?page=experience">功能体验</a>
+        </nav>
+        <button class="device-pill" id="deviceButton" type="button">
+          <span class="status-dot"></span>
+          <span>我的抱抱</span>
+        </button>
+      </div>
     </header>
 
     <main id="top">
       <section class="hero">
+        <span class="poster-doodle doodle-spark" aria-hidden="true">✦</span>
+        <span class="poster-doodle doodle-heart" aria-hidden="true">♡</span>
         <div class="hero-copy">
-          <div class="eyebrow">主动式 AI 陪伴伙伴</div>
+          <div class="eyebrow">Robotie 陪伴机器人抱抱</div>
           <h1>不是等你开口，<br />才向你<em>靠近！</em></h1>
-          <p>上传一张宠物照片，定制 TA 的外形与性格。Robotie 会感知你的状态，在合适的时候主动回应</p>
+          <p>上传一张宠物照片，定制 TA 的外形与性格。抱抱会感知你的状态，在合适的时候主动回应</p>
           <div class="hero-actions">
-            <a class="primary-cta" href="#maker">创建我的伙伴 <span>↓</span></a>
+            <a class="primary-cta" href="index.html?page=experience">创建我的伙伴 <span>→</span></a>
             <a class="secondary-cta" href="#activeDemo">看看 TA 如何主动靠近 <span>→</span></a>
           </div>
         </div>
-        <div class="active-demo" id="activeDemo" aria-label="Robotie 主动靠近演示">
+        <div class="active-demo" id="activeDemo" aria-label="抱抱主动靠近演示">
           <div class="demo-caption"><span class="demo-pulse"></span><span id="demoStatus">注意到你</span></div>
           <div class="demo-room">
             <div class="demo-person" aria-hidden="true"><i></i><b></b></div>
@@ -53,6 +66,27 @@
         </div>
       </section>
 
+      <section class="product-story" id="productStory">
+        <div class="section-heading">
+          <span class="step-number">00</span>
+          <div><p>ROBOTIE 陪伴机器人抱抱</p><h2 class="story-title"><span>一个会主动来找你的</span><em>机器人朋友</em></h2></div>
+        </div>
+        <div class="poster-board">
+          <div class="poster-robot" aria-hidden="true">
+            <span class="bot-camera"></span>
+            <div class="bot-face"><i></i><i></i><b></b></div>
+            <span class="bot-arm left"></span><span class="bot-arm right"></span>
+            <span class="bot-wheel left"></span><span class="bot-wheel right"></span>
+          </div>
+        </div>
+        <div class="feature-grid" aria-label="抱抱的陪伴方式">
+          <article><span>♡</span><h3>主动靠近</h3><p>发现你就主动走过来。</p></article>
+          <article><span>◌</span><h3>情绪识别</h3><p>读懂你的状态，给出回应。</p></article>
+          <article><span>↺</span><h3>邀请式拥抱</h3><p>温柔提醒：抱一抱更开心。</p></article>
+          <article><span>▧</span><h3>长期记忆</h3><p>记住你的习惯，越陪越懂你。</p></article>
+        </div>
+      </section>
+
       <section class="maker" id="maker">
         <div class="section-heading">
           <span class="step-number">01</span>
@@ -60,7 +94,7 @@
         </div>
 
         <div class="upload-card" id="uploadCard">
-          <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" hidden />
+          <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden />
           <button class="upload-action" id="uploadButton" type="button">
             <span class="upload-icon">＋</span>
             <strong>上传或拍一张照片</strong>
@@ -111,14 +145,17 @@
         <div class="field-group personality-field">
           <label>TA 的性格 <i>最多选 3 个</i></label>
           <div class="chips" id="personalityChips">
-            <button type="button" class="active">黏人</button><button type="button">好奇</button><button type="button">慢热</button><button type="button">贪吃</button><button type="button">高冷</button><button type="button">小话痨</button><button type="button">胆小鬼</button><button type="button">精力旺盛</button>
+            <button type="button" class="active">黏人</button><button type="button">好奇</button><button type="button">慢热</button><button type="button">贪吃</button><button type="button">高冷</button><button type="button">小话痨</button><button type="button">胆小鬼</button><button type="button">精力旺盛</button><button type="button" data-custom-trigger>其他</button>
+          </div>
+          <div class="custom-personality" id="customPersonality">
+            <input id="customPersonalityInput" type="text" maxlength="16" placeholder="写一个专属性格，例如：爱撒娇" />
           </div>
         </div>
 
         <div class="field-group slider-field">
-          <div class="slider-label"><label for="quirk">脸的宽度</label><output id="faceOutput">56%</output></div>
-          <input id="quirk" type="range" min="0" max="100" value="56" />
-          <div class="range-ends"><span>尖尖的</span><span>圆乎乎</span></div>
+          <div class="slider-label"><label for="quirk">相处模式</label><output id="faceOutput">自然平衡</output></div>
+          <input id="quirk" type="range" min="0" max="100" value="64" />
+          <div class="range-ends"><span>安静陪伴</span><span>主动靠近</span></div>
         </div>
 
         <button class="generate-button" id="generateButton" type="button">
@@ -168,7 +205,7 @@
             </div>
             <p class="frame-note" id="frameNote">正在使用基础表情骨架</p>
           </div>
-          <button class="sync-button" id="syncButton" type="button"><span>同步到我的机器人</span><i>设备连接后可用</i></button>
+          <button class="sync-button" id="syncButton" type="button"><span>同步到抱抱</span><i>设备连接后可用</i></button>
           <button class="restart-button" id="restartButton" type="button">不太像？重新调整</button>
         </div>
       </section>
@@ -178,8 +215,8 @@
 
     <dialog id="deviceDialog">
       <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
-      <span class="dialog-icon">⌁</span><h2>连接你的机器人</h2>
-      <p>Tuya 云端连接会由后端完成。前端不会保存 Access ID、Secret 或设备密钥。</p>
+      <span class="dialog-icon">⌁</span><h2>连接抱抱</h2>
+      <p>抱抱将通过局域网 Agent 与 TuyaOpen 固件连接。小程序不会保存设备密钥。</p>
       <div class="code-placeholder"><span></span><span></span><span></span><span></span><span></span><span></span></div>
       <button class="dialog-primary" data-close-dialog>我知道了</button>
     </dialog>
@@ -192,6 +229,13 @@
     </dialog>
 
     <div class="toast" id="toast" role="status"></div>
+    <script>
+      document.querySelectorAll("[data-page-link]").forEach((link) => {
+        const active = link.dataset.pageLink === document.documentElement.dataset.page;
+        link.classList.toggle("active", active);
+        if (active) link.setAttribute("aria-current", "page");
+      });
+    </script>
     <script src="app.js"></script>
   </body>
 </html>

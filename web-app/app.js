@@ -10,7 +10,7 @@ const DEVICE_FRAME = Object.freeze({
   sourceWidth: 332,
   sourceHeight: 252
 });
-const state = { species: "猫猫", personalities: ["黏人"], photoUrl: null, identity: null };
+const state = { species: "猫猫", personalities: ["黏人"], customPersonality: "", companionship: 64, photoUrl: null, identity: null };
 const uploadCard = $("#uploadCard");
 const photoInput = $("#photoInput");
 const photoPreview = $("#photoPreview");
@@ -43,19 +43,53 @@ $$('.segmented button').forEach((button) => button.addEventListener("click", () 
   state.species = button.dataset.species;
 }));
 
+function selectedPersonalities() {
+  return [...state.personalities, state.customPersonality].filter(Boolean).slice(0, 3);
+}
+
 $$('#personalityChips button').forEach((button) => button.addEventListener("click", () => {
+  if (button.dataset.customTrigger !== undefined) {
+    button.classList.toggle("active");
+    $("#customPersonality").classList.toggle("show", button.classList.contains("active"));
+    if (button.classList.contains("active")) $("#customPersonalityInput").focus();
+    if (!button.classList.contains("active")) {
+      state.customPersonality = "";
+      $("#customPersonalityInput").value = "";
+    }
+    return;
+  }
   const value = button.textContent;
   if (button.classList.contains("active")) {
     button.classList.remove("active");
     state.personalities = state.personalities.filter((item) => item !== value);
     return;
   }
-  if (state.personalities.length === 3) return showToast("最多选 3 个性格标签");
+  if (selectedPersonalities().length === 3) return showToast("最多选 3 个性格标签");
   button.classList.add("active");
   state.personalities.push(value);
 }));
 
-$("#quirk").addEventListener("input", (event) => $("#faceOutput").value = `${event.target.value}%`);
+$("#customPersonalityInput").addEventListener("input", (event) => {
+  const value = event.target.value.trim();
+  if (value && state.personalities.length >= 3) {
+    event.target.value = "";
+    state.customPersonality = "";
+    return showToast("最多选 3 个性格标签");
+  }
+  state.customPersonality = value;
+});
+
+function companionshipLabel(value) {
+  const amount = Number(value);
+  if (amount < 34) return "安静陪伴";
+  if (amount < 67) return "自然平衡";
+  return "主动靠近";
+}
+
+$("#quirk").addEventListener("input", (event) => {
+  state.companionship = Number(event.target.value);
+  $("#faceOutput").value = companionshipLabel(state.companionship);
+});
 
 const expressions = {
   idle: ["IDLE / 待机", "idle", ""],
@@ -219,7 +253,8 @@ function prepareResult() {
   const name = $("#petName").value.trim() || "未命名小朋友";
   $("#summaryName").textContent = name;
   const breed = $("#breed").value.trim();
-  $("#summaryPersonality").textContent = [breed, $("#furColor").value, $("#eyeColor").value].filter(Boolean).join(" / ");
+  const personalitySummary = selectedPersonalities().join("、");
+  $("#summaryPersonality").textContent = [breed, personalitySummary || $("#furColor").value, companionshipLabel(state.companionship)].filter(Boolean).join(" / ");
 }
 
 const patternNames = {
